@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using System.Diagnostics;
 using Newtonsoft;
+using System.Xml.Linq;
+using System.Data.SqlTypes;
 
 namespace ConversorDolar.Controllers
 {
@@ -20,37 +22,29 @@ namespace ConversorDolar.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProcessForm(string formData)
+        public async Task<IActionResult> ProcessForm(int formData)
         {
-            string apikey = "287e902dd3ab447fa1780dc170f7902e";
-            string baseCurrency = "BRL";//Moeda base (Reais)
-            string targetCurrency = "USD";//Moeda de destino (Dólares)
-
-            //Instância  do RestClient
-            var client = new RestClient($"https://open.er-api.com/v6/latest/{baseCurrency}");
-            var request = new RestRequest("/Index",Method.Post);
-            request.AddParameter("app_id", apikey);
-
-            //Executando a requisição
-            var response = client.Execute(request);
-
-            //Verificação da requisição
-            if (response.IsSuccessful) 
+            HttpClient httpClient = new();
+            var handler = new HttpClientHandler
             {
-                //Analíse da requisição
-                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<ExchangeRateResult>(response.Content);
+                AllowAutoRedirect = true
+            };
+            var client = new HttpClient(handler);
+            string apiUrl = $"https://openexchangerates.org/api?app_id=971c56ff8423492db257d766f4a28c8f";
+            var toCurrency = "BRL";
+            var fromCurrency = "USD";
 
-                //Obtem a taxa de câmbio
-                double exchangeRate = result.Rates[targetCurrency];
 
-                //Exibe a taxa de câmbio
-                Console.WriteLine($"A taxa de câmbio de {baseCurrency} para {targetCurrency} é : {exchangeRate}");
+            var response = await client.GetFromJsonAsync<ExchangeRateResult>(apiUrl);
+
+            if (response.Rates.TryGetValue(toCurrency, out var toRate) &&
+                response.Rates.TryGetValue(fromCurrency, out var fromRate))
+            {
+                // Convert amount
+                var convertedAmount = formData * (toRate / fromRate);
+                var retorno = convertedAmount;
             }
-            else 
-            { 
-            
-                Console.WriteLine($"Erro na requisição: {response.ErrorMessage}");
-            }
+
             return RedirectToAction("Index");
         }
 

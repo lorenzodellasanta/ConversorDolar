@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    var resultado = TempData["Resultado"] as int?;
+    var resultado = TempData["Resultado"];
 }
 @model ConversorDolar.Models.ExchangeRateResult
 
@@ -20,7 +20,7 @@
             <input asp-for="FormData"type="number" placeholder="Digite o valor em Real" min="0" step="0.01"/>
         <button type="submit">Converter</button>
 
-            <h3>Resultado:@resultado</h3>
+        <h3>Resultado:@resultado</h3>
         </form>
     </div>
 
