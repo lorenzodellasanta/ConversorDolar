@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using System.Diagnostics;
+using Newtonsoft;
 
 namespace ConversorDolar.Controllers
 {
@@ -21,8 +22,35 @@ namespace ConversorDolar.Controllers
         [HttpPost]
         public IActionResult ProcessForm(string formData)
         {
-            // Process form data
-            // ...
+            string apikey = "287e902dd3ab447fa1780dc170f7902e";
+            string baseCurrency = "BRL";//Moeda base (Reais)
+            string targetCurrency = "USD";//Moeda de destino (Dólares)
+
+            //Instância  do RestClient
+            var client = new RestClient($"https://open.er-api.com/v6/latest/{baseCurrency}");
+            var request = new RestRequest("/Index",Method.Post);
+            request.AddParameter("app_id", apikey);
+
+            //Executando a requisição
+            var response = client.Execute(request);
+
+            //Verificação da requisição
+            if (response.IsSuccessful) 
+            {
+                //Analíse da requisição
+                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<ExchangeRateResult>(response.Content);
+
+                //Obtem a taxa de câmbio
+                double exchangeRate = result.Rates[targetCurrency];
+
+                //Exibe a taxa de câmbio
+                Console.WriteLine($"A taxa de câmbio de {baseCurrency} para {targetCurrency} é : {exchangeRate}");
+            }
+            else 
+            { 
+            
+                Console.WriteLine($"Erro na requisição: {response.ErrorMessage}");
+            }
 
             return View();
         }
