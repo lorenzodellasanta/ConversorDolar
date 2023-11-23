@@ -1,5 +1,6 @@
 ﻿using ConversorDolar.Models;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using System.Diagnostics;
 
 namespace ConversorDolar.Controllers
@@ -12,16 +13,19 @@ namespace ConversorDolar.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult ProcessForm(string formData)
         {
-            return View();
-        }
+            // Process form data
+            // ...
+
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
