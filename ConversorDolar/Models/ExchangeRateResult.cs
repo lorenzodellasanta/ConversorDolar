@@ -8,7 +8,5 @@
         public string? Base { get; set; }
         public System.Collections.Generic.Dictionary<string, double>? Rates { get; set; }
 
-        public string? FormData { get; set; }
-
     }
 }

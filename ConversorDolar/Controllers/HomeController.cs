@@ -1,16 +1,14 @@
 ﻿using ConversorDolar.Models;
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
 using System.Diagnostics;
-using Newtonsoft;
-using System.Xml.Linq;
-using System.Data.SqlTypes;
 
 namespace ConversorDolar.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly HttpClient _httpClient = new();
+        private readonly string _apiKey = "5a0c73984ab847f68f6a5f3902631818";
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -22,27 +20,22 @@ namespace ConversorDolar.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProcessForm(int formData)
+        public async Task<IActionResult> ProcessForm(Conversor model)
         {
-            HttpClient httpClient = new();
-            var handler = new HttpClientHandler
-            {
-                AllowAutoRedirect = true
-            };
-            var client = new HttpClient(handler);
-            string apiUrl = $"https://openexchangerates.org/api?app_id=971c56ff8423492db257d766f4a28c8f";
+
+            string apiUrl = $"https://open.er-api.com/v6/latest?app_id={_apiKey}";
             var toCurrency = "BRL";
             var fromCurrency = "USD";
 
 
-            var response = await client.GetFromJsonAsync<ExchangeRateResult>(apiUrl);
+            var response = await _httpClient.GetFromJsonAsync<ExchangeRateResult>(apiUrl);
 
             if (response.Rates.TryGetValue(toCurrency, out var toRate) &&
                 response.Rates.TryGetValue(fromCurrency, out var fromRate))
             {
                 // Convert amount
-                var convertedAmount = formData * (toRate / fromRate);
-                var retorno = convertedAmount;
+                var convertedAmount = Convert.ToDouble(model.FormData) * (toRate / fromRate);
+                TempData["Resultado"] = convertedAmount.ToString();
             }
 
             return RedirectToAction("Index");
