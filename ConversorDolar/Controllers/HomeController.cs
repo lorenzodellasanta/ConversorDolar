@@ -35,7 +35,7 @@ namespace ConversorDolar.Controllers
             {
                 // Convert amount
                 var convertedAmount = Convert.ToDouble(model.FormData) * (toRate / fromRate);
-                TempData["Resultado"] = convertedAmount.ToString();
+                TempData["Resultado"] = convertedAmount.ToString("0.00");
             }
 
             return RedirectToAction("Index");
