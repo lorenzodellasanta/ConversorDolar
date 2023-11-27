@@ -14,9 +14,14 @@ namespace ConversorDolar.Controllers
         {
             _logger = logger;
         }
-        public IActionResult Index()
+        public async Task<Dictionary<string,double>> Index()
         {
-            return View();
+
+            string apiUrl = $"https://open.er-api.com/v6/latest?app_id={_apiKey}";
+
+            var response = await _httpClient.GetFromJsonAsync<ExchangeRateResult>(apiUrl);
+
+            return response.Rates;
         }
 
         [HttpPost]
