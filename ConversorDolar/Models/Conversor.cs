@@ -3,6 +3,6 @@
     public class Conversor
     {
         public string? FormData { get; set; }
-        public float CoinData { get; set; }
+        public List<string> Currencies { get; set; } = new List<string>();
     }
 }
