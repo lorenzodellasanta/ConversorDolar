@@ -19,14 +19,16 @@ namespace ConversorDolar.Controllers
 
             string apiUrl = $"https://open.er-api.com/v6/latest?app_id={_apiKey}";
 
-            var response = await _httpClient.GetFromJsonAsync<Conversor>(apiUrl);
+            var response = await _httpClient.GetFromJsonAsync<ExchangeRateResult>(apiUrl);
 
-            Conversor model = new()
+            Conversor model = new Conversor
             {
-                Currencies = response.Currencies.ToList()
+                Currencies = response.Rates.Select(a=> a.Key).ToList(),
+                
             };
 
             return View(model);
+
         }
 
         [HttpPost]

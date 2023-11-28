@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     var resultado = TempData["Resultado"];
-    
 }
 @model ConversorDolar.Models.Conversor
 
@@ -23,9 +22,25 @@
         <br/>
         <label for="name" style="margin-top:1px; font-weight: bold; right: 50px;">De:</label>
         <select asp-action="Index">Select...</select>
+        @if(@Model.Currencies != null)
+        {
+            <select value="">Select...</select>
+            @foreach(var item in @Model.Currencies)
+            {
+                <select value="@item">@item</select>
+            }
+        }
         <br/>
         <label for="name" style="margin-top:1px; font-weight: bold;">Para:</label>
         <select asp-action="Index">Select...</select>
+        @if (@Model.Currencies != null)
+        {
+            <select value="">Select...</select>
+            @foreach (var item in @Model.Currencies)
+            {
+                <select value="@item">@item</select>
+            }
+        }
         <br/>
         <form asp-controller="Home" asp-action="ProcessForm" method="post">
         <button type="submit">Converter</button>
