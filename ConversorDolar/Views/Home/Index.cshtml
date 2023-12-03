@@ -1,9 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
     var resultado = TempData["Resultado"];
 }
 @model ConversorDolar.Models.Conversor
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,15 +11,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div>
+        <header class="header">
+            <h1>Conversor de Moedas</h1>
+            <nav>
+                <a href="historico">Histórico</a>
+            </nav>
+            <hr />
+        </header>
+    </div>
     <div class="converter"style="margin-top:5%;">
 
-
-        <h2>Conversor de Moedas</h2>
+        <form asp-controller="Home" asp-action="ProcessForm" method="post">
         <label for="name" style="margin-top:1px; font-weight:bold;">Valor:</label>
-        <input asp-for="FormValor" type="number" placeholder="Digite o valor" min="0" step="0.01" />
+            <input asp-for="FormValor" type="number" placeholder="Digite o valor" min="0" step="0.01" />
         <br/>
         <label for="name" style="margin-top:1px; font-weight: bold; right: 50px;">De:</label>
-        <select>Select...
+            <select id="CurrencyDe" name="CurrencyDe" class="select">
+                Select...
         @if(@Model.Currencies != null)
         {
             <option value="">Select...</option>
@@ -33,7 +40,7 @@
         </select>
         <br/>
         <label for="name" style="margin-top:1px; font-weight: bold;">Para:</label>
-        <select>Select...
+        <select id="CurrencyPara" name="CurrencyPara" class="select">Select...
         @if (@Model.Currencies != null)
         {
             <option value="">Select...</option>
@@ -44,10 +51,9 @@
         }
         </select>
         <br/>
-        <form asp-controller="Home" asp-action="ProcessForm" method="post">
         <button type="submit">Converter</button>
         <br/>
-        <h3>@resultado</h3>
+            <h3>@resultado</h3>
         </form>
     </div>
 
