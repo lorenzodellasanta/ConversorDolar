@@ -1,4 +1,6 @@
 header {
+    margin-top:10px;
+    margin-left:5px;
     position:fixed;
     top:0;
     left:0;
@@ -6,7 +8,6 @@ header {
     color: black;
 
 }
-
     /* Estilos para os links */
 header a {
     color: black;
@@ -19,7 +20,8 @@ header a:hover {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    background-image: radial-gradient(circle at 98.34% 90.56%, #ffffff 0, #ffffff 7.14%, #ffffff 14.29%, #ffffff 21.43%, #fffffd 28.57%, #fffff9 35.71%, #fffff2 42.86%, #edfde9 50%, #deebdf 57.14%, #d2dbd5 64.29%, #cacdcc 71.43%, #c4c2c3 78.57%, #c1babc 85.71%, #beb4b6 92.86%, #bdb2b2 100%);
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -30,10 +32,9 @@ body {
 
 .converter {
     text-align: center;
-    background-color: #dbe6c4;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .select{
