@@ -14,14 +14,17 @@
 </head>
 <body>
     <div>
-        <header class="header">
-            <h1>Conversor de Moedas</h1>
-            <nav>
-                <a href="historico">Histórico</a>
-            </nav>
-            <hr />
-        </header>
+        <form method="get" asp-controller="Historico" asp-action="Index">
+            <header class="header">
+                <h1>Conversor de Moedas</h1>
+                        <nav>
+                            <a href="historico">Histórico</a>
+                        </nav>
+                    <hr />
+                </header>
+        </form>
     </div>
+
     <div class="converter"style="margin-top:5%;">
 
         <form asp-controller="Home" asp-action="ProcessForm" method="post">
