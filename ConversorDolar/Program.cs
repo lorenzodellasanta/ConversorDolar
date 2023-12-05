@@ -24,4 +24,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "historico",
+    pattern:"historico",
+    defaults: new { controller = "Historico", action = "Index"}
+    );
+
 app.Run();

@@ -21,7 +21,7 @@ namespace ConversorDolar.Controllers
 
             var response = await _httpClient.GetFromJsonAsync<ExchangeRateResult>(apiUrl);
 
-            Conversor model = new Conversor
+            Conversor model = new()
             {
                 Currencies = response.Rates.Select(a=> a.Key).ToList(),
                 

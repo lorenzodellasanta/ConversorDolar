@@ -5,9 +5,8 @@ namespace ConversorDolar.Controllers
     public class HistoricoController : Controller
     {
         private readonly ILogger<HistoricoController> _logger;
-        private readonly HttpClient _httpClient = new();
 
-        public HistoricoController(ILogger<HistoricoController> logger, HttpClient httpClient)
+        public HistoricoController(ILogger<HistoricoController> logger)
         {
             _logger = logger;
         }
