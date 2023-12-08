@@ -17,7 +17,7 @@
             <header class="header">
                 <h1>Conversor de Moedas</h1>
                         <nav>
-                            <a href="historico">Histórico</a>
+                            <a href="Historico">Histórico</a>
                         </nav>
                     <hr />
             </header>
@@ -47,9 +47,9 @@
         @if (@Model.Currencies != null)
         {
             <option value="">Select...</option>
-            @foreach (var item in @Model.Currencies)
+            @foreach (var item2 in @Model.Currencies)
             {
-                <option value="@item">@item</option>
+                <option value="@item2">@item2</option>
             }
         }
         </select>

@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Views\Home\historico.cshtml" />
+    <Compile Include="Views\Historico\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
