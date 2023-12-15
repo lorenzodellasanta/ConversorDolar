@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Views\Historico\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Google.Cloud.Firestore" Version="3.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
