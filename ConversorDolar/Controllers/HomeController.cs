@@ -36,17 +36,17 @@ namespace ConversorDolar.Controllers
         {
 
             string apiUrl = $"https://open.er-api.com/v6/latest?app_id={_apiKey}";
-            var toCurrency = model.CurrencyDe;
-            var fromCurrency = model.CurrencyPara;
+            var fromCurrency = model.CurrencyDe;
+            var toCurrency = model.CurrencyPara;
 
 
             var response = await _httpClient.GetFromJsonAsync<ExchangeRateResult>(apiUrl);
 
-            if (response.Rates.TryGetValue(toCurrency, out var toRate) &&
-                response.Rates.TryGetValue(fromCurrency, out var fromRate))
+            if (response.Rates.TryGetValue(fromCurrency, out var fromRate) &&
+                response.Rates.TryGetValue(toCurrency, out var toRate))
             {
                 // Convert amount
-                var convertedAmount = Convert.ToDouble(model.FormValor) * (toRate / fromRate);
+                var convertedAmount = Convert.ToDouble(model.FormValor) * (fromRate / toRate);
                 TempData["Resultado"] = convertedAmount.ToString("0.00");
             }
 
