@@ -14,6 +14,7 @@ namespace ConversorDolar.Controllers
         {
             _logger = logger;
         }
+
         public async Task<IActionResult> Index()
         {
 
@@ -39,11 +40,10 @@ namespace ConversorDolar.Controllers
             var fromCurrency = model.CurrencyDe;
             var toCurrency = model.CurrencyPara;
 
-
             var response = await _httpClient.GetFromJsonAsync<ExchangeRateResult>(apiUrl);
 
-            if (response.Rates.TryGetValue(fromCurrency, out var fromRate) &&
-                response.Rates.TryGetValue(toCurrency, out var toRate))
+            if (response.Rates.TryGetValue(toCurrency, out var fromRate) &&
+                response.Rates.TryGetValue(fromCurrency, out var toRate))
             {
                 // Convert amount
                 var convertedAmount = Convert.ToDouble(model.FormValor) * (fromRate / toRate);
